@@ -1,2 +1,2 @@
-public class SimpleDitherProcessor {
+public class SimpleDitherProcessor extends ImageHolder {
 }

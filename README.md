@@ -14,6 +14,6 @@ A gray-level version and a black-and-write version(with two algorithms) of the i
 
 * Function availability
   <table><tr><td></td><td>TODO</td><td>DOING</td><td>DONE</td></tr>
-<tr><td>Color to Grayscale</td><td>*</td><td></td><td></td></tr>
+<tr><td>Color to Grayscale</td><td></td><td></td><td>*</td></tr>
 <tr><td>Dithering Algorithms</td><td>*</td><td></td><td></td></tr>
 <tr><td>UI Integration</td><td>*</td><td></td><td></td></tr></table>

@@ -1,25 +1,14 @@
 import org.opencv.core.Core;
-import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
-
 import java.util.Scanner;
 
-public class InputImageLoader {
-    private Mat imageFile;
+public class InputImageLoader extends ImageHolder {
+
     private String imagePath;
 
     public InputImageLoader(String imagePath) {
         this.imagePath = imagePath;
-        imageFile = Imgcodecs.imread(imagePath);
-    }
-
-    public ColorPixelDTO getPixelRGB(int row, int col){
-        double[] pixelBGR = imageFile.get(row,col);
-        ColorPixelDTO colorPixelDTO = new ColorPixelDTO();
-        colorPixelDTO.Blue = pixelBGR[0];
-        colorPixelDTO.Green = pixelBGR[1];
-        colorPixelDTO.Red = pixelBGR[2];
-        return colorPixelDTO;
+        image = Imgcodecs.imread(imagePath);
     }
 
     public static void main(String args[]){
@@ -27,7 +16,6 @@ public class InputImageLoader {
     }
 
     public static void functionTest(){
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Scanner input = new Scanner(System.in);
         String inputPath = input.nextLine();
         InputImageLoader inputImageLoader = new InputImageLoader(inputPath);

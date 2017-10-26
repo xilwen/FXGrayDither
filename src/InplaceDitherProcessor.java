@@ -1,2 +1,2 @@
-public class InplaceDitherProcessor {
+public class InplaceDitherProcessor extends ImageHolder {
 }
