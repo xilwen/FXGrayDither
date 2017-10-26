@@ -33,6 +33,11 @@ public class ImageHolder {
         return colorPixelDTO;
     }
 
+    public double getPixelGray(int row, int col) {
+        double[] pixel = image.get(row, col);
+        return pixel[0];
+    }
+
     public Mat getMat() {
         return image.clone();
     }
