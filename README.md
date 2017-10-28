@@ -10,7 +10,7 @@ A gray-level version and a black-and-write version(with two algorithms) of the i
   3. IntelliJ IDEA (for project file, optional)  
 * Screenshot  
   Temporary Images from another repo, since GUI haven't done yet
-  ![alt tag](https://raw.githubusercontent.com/xilwen/MusicPlayerQt/master/screenshot.jpg)
+  ![alt tag](https://raw.githubusercontent.com/xilwen/FXGrayDither/master/Screenshot.jpg)
 
 * Function availability
   <table><tr><td></td><td>TODO</td><td>DOING</td><td>DONE</td></tr>
