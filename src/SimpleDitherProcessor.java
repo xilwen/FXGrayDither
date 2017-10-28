@@ -4,8 +4,7 @@ import java.util.Scanner;
 
 import static org.opencv.core.CvType.CV_8UC1;
 
-public class SimpleDitherProcessor extends ImageHolder implements ImageProcessor {
-    boolean alreadyProcessed;
+public class SimpleDitherProcessor extends DitheringProcessor {
 
     public SimpleDitherProcessor(Mat inputImage) {
         this.image = inputImage;
@@ -14,47 +13,27 @@ public class SimpleDitherProcessor extends ImageHolder implements ImageProcessor
 
     @Override
     public void doProcess() {
-        ImageHolder tempImage = new ImageHolder(image.rows() * 2, image.cols() * 2, CV_8UC1);
+        setDitherMatrix();
+
+        ImageHolder tempImage = new ImageHolder(image.rows() * ditheringMatrixSqrt,
+                image.cols() * ditheringMatrixSqrt, CV_8UC1);
 
         for (int i = 0; i < image.rows(); ++i) {
             for (int j = 0; j < image.cols(); ++j) {
                 double grayscale = this.getPixelGray(i, j);
-                if (grayscale >= 201) {
-                    tempImage.setPixelGray(2 * i, 2 * j, 255);
-                    tempImage.setPixelGray((2 * i) + 1, (2 * j) + 1, 255);
-                    tempImage.setPixelGray(2 * i, (2 * j) + 1, 255);
-                    tempImage.setPixelGray((2 * i) + 1, 2 * j, 255);
-                } else if (grayscale >= 151) {
-                    tempImage.setPixelGray(2 * i, 2 * j, 255);
-                    tempImage.setPixelGray((2 * i) + 1, (2 * j) + 1, 255);
-                    tempImage.setPixelGray(2 * i, (2 * j) + 1, 255);
-                    tempImage.setPixelGray((2 * i) + 1, 2 * j, 0);
-                } else if (grayscale >= 101) {
-                    tempImage.setPixelGray(2 * i, 2 * j, 255);
-                    tempImage.setPixelGray((2 * i) + 1, (2 * j) + 1, 255);
-                    tempImage.setPixelGray(2 * i, (2 * j) + 1, 0);
-                    tempImage.setPixelGray((2 * i) + 1, 2 * j, 0);
-                } else if (grayscale >= 511) {
-                    tempImage.setPixelGray(2 * i, 2 * j, 255);
-                    tempImage.setPixelGray((2 * i) + 1, (2 * j) + 1, 0);
-                    tempImage.setPixelGray(2 * i, (2 * j) + 1, 0);
-                    tempImage.setPixelGray((2 * i) + 1, 2 * j, 0);
-                } else {
-                    tempImage.setPixelGray(2 * i, 2 * j, 0);
-                    tempImage.setPixelGray((2 * i) + 1, (2 * j) + 1, 0);
-                    tempImage.setPixelGray(2 * i, (2 * j) + 1, 0);
-                    tempImage.setPixelGray((2 * i) + 1, 2 * j, 0);
+
+                //per (original) pixel process
+                for (int k = 0; k < ditheringMatrixSqrt; ++k) {
+                    for (int m = 0; m < ditheringMatrixSqrt; ++m) {
+                        tempImage.setPixelGray(ditheringMatrixSqrt * i + k, ditheringMatrixSqrt * j + m,
+                                (grayscale >= 255 / (ditheringMatrixSize + 1) * ditheringMatrix[k][m]) ? 255 : 0);
+                    }
                 }
             }
         }
 
         image = tempImage.getMat();
         alreadyProcessed = true;
-    }
-
-    @Override
-    public boolean processed() {
-        return alreadyProcessed;
     }
 
     public static void main(String args[]) {
@@ -70,8 +49,8 @@ public class SimpleDitherProcessor extends ImageHolder implements ImageProcessor
         grayLevelProcessor.doProcess();
 
         SimpleDitherProcessor simpleDitherProcessor = new SimpleDitherProcessor(grayLevelProcessor.getMat());
+        simpleDitherProcessor.setDitheringMatrixSize(16);
         simpleDitherProcessor.doProcess();
         simpleDitherProcessor.saveImage(inputPath + "_simpleDither.jpg");
     }
-
 }

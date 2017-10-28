@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 import static org.opencv.core.CvType.CV_8UC1;
 
-public class InplaceDitherProcessor extends ImageHolder implements ImageProcessor {
-    boolean alreadyProcessed;
-
-    private final double ditherMatrix[][] = {{0, 8, 2, 10}, {12, 4, 14, 6}, {3, 11, 1, 9}, {15, 7, 13, 5}};
+public class InplaceDitherProcessor extends DitheringProcessor {
 
     public InplaceDitherProcessor(Mat inputImage) {
         this.image = inputImage;
@@ -16,11 +13,12 @@ public class InplaceDitherProcessor extends ImageHolder implements ImageProcesso
 
     @Override
     public void doProcess() {
+        setDitherMatrix();
         ImageHolder tempImage = new ImageHolder(image.rows(), image.cols(), CV_8UC1);
 
         for (int i = 0; i < image.rows(); ++i) {
             for (int j = 0; j < image.cols(); ++j) {
-                if ((getPixelGray(i, j) / 16) > ditherMatrix[i % 4][j % 4]) {
+                if ((getPixelGray(i, j) / ditheringMatrixSize) > ditheringMatrix[i % ditheringMatrixSqrt][j % ditheringMatrixSqrt]) {
                     tempImage.setPixelGray(i, j, 255);
                 } else {
                     tempImage.setPixelGray(i, j, 0);
@@ -50,6 +48,7 @@ public class InplaceDitherProcessor extends ImageHolder implements ImageProcesso
         grayLevelProcessor.doProcess();
 
         InplaceDitherProcessor inplaceDitherProcessor = new InplaceDitherProcessor(grayLevelProcessor.getMat());
+        inplaceDitherProcessor.setDitheringMatrixSize(16);
         inplaceDitherProcessor.doProcess();
         inplaceDitherProcessor.saveImage(inputPath + "_InplaceDither.jpg");
     }
