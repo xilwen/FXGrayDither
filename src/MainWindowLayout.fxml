@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <children>
+      <Region maxHeight="10.0" prefHeight="10.0" prefWidth="200.0" />
+      <GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1024.0" style="-fx-background-color: #F5F5F5;" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ImageView fx:id="inputImage" fitHeight="270.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER" />
+                  <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton fx:id="openImageButton" buttonType="RAISED" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #3F51B5;" text="Open Image" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <Region prefWidth="25.0" />
+                        <Label prefWidth="275.0" text="Input Image">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="grayscaleVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+               <children>
+                  <ImageView fx:id="grayscaleImage" fitHeight="270.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER" />
+                  <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton fx:id="saveGrayscaleImageButton" buttonType="RAISED" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #757575;" text="Save" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <Region prefWidth="25.0" />
+                        <Label prefWidth="275.0" text="Grayscale Image">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="simpleDitheringVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fx:id="simpleDitheringImage" fitHeight="270.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER" />
+                  <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton fx:id="saveSimpleDitheringImageButton" buttonType="RAISED" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #212121;" text="Save" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <Region prefWidth="25.0" />
+                        <Label prefWidth="200.0" text="Simple Dithering, Matrix Size :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <JFXComboBox fx:id="simpleDitheringCombobox" prefWidth="75.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="inplaceDitheringVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fx:id="inplaceDitheringImage" fitHeight="270.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER" />
+                  <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton fx:id="saveInplaceDitheringButton" buttonType="RAISED" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #212121;" text="Save" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <Region prefWidth="25.0" />
+                        <Label prefWidth="200.0" text="Inplace Dithering, Matrix Size :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <JFXComboBox fx:id="inplaceDitheringCombobox" prefWidth="75.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
+      <Region maxHeight="10.0" prefHeight="10.0" prefWidth="200.0" />
+      <Label alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" text="NOTE : Program may freeze during image processing. It will take longer if high resolution image is opened or high matrix size is configured." textAlignment="CENTER" textFill="#424242" VBox.vgrow="ALWAYS">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</VBox>
