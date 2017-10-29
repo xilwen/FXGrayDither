@@ -27,7 +27,7 @@ Execuatable JAR is downloadable at https://github.com/xilwen/FXGrayDither/releas
   The difference can be seen in the shadow (or where with deeper color); the arrangement of black pixels are obviously well-distributed in the standard Beyer/Index matrices than random generated matrices.  
   The full size image of outputs below can be found at https://github.com/xilwen/FXGrayDither/tree/master/Assignment1/images/MatrixArrangements/ .  
 
-  ![alt tag](https://raw.githubusercontent.com/xilwen/FXGrayDither/master/ArrangementDifferences.png)
+  ![alt tag](https://raw.githubusercontent.com/xilwen/FXGrayDither/master/Assignment1/images/ArrangementDifferences.png)
 
 
 ### Program Screenshot
