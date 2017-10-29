@@ -18,7 +18,7 @@ public class Main extends Application {
         Controller controller = fxmlLoader.getController();
         controller.init();
         primaryStage.setTitle("FXGrayDither");
-        primaryStage.setScene(new Scene(root, 1024, 720));
+        primaryStage.setScene(new Scene(root, 1024, 775));
         primaryStage.show();
     }
 }

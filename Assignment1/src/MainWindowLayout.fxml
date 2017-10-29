@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
@@ -11,7 +12,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <VBox xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
@@ -111,6 +111,21 @@
          </children>
       </GridPane>
       <Region maxHeight="10.0" prefHeight="10.0" prefWidth="200.0" />
+      <HBox alignment="CENTER" maxHeight="25.0" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <JFXCheckBox fx:id="randomMatrixCheckBox" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Use Random Values for Dithering Threshold Maps" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXCheckBox>
+            <Region prefHeight="200.0" prefWidth="75.0" />
+            <JFXButton fx:id="showDitheringMatrixButton" style="-fx-background-color: #607D8B;" text="Show Dithering Matrix" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
       <Label alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" text="NOTE : Program may freeze during image processing. It will take longer if high resolution image is opened or high matrix size is configured." textAlignment="CENTER" textFill="#424242" VBox.vgrow="ALWAYS">
          <font>
             <Font size="14.0" />

@@ -1,8 +1,10 @@
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -25,8 +27,8 @@ public class Controller {
         grayscaleVBox.disableProperty().setValue(true);
         simpleDitheringVBox.disableProperty().setValue(true);
         inplaceDitheringVBox.disableProperty().setValue(true);
-        simpleDitheringCombobox.getItems().addAll(4,9,16,64);
-        inplaceDitheringCombobox.getItems().addAll(4,9,16,64);
+        simpleDitheringCombobox.getItems().addAll(4, 9, 16, 64);
+        inplaceDitheringCombobox.getItems().addAll(4, 9, 16, 64);
 
         openImageButton.setOnMouseClicked(e -> {
             FileChooser filechooser = new FileChooser();
@@ -55,34 +57,50 @@ public class Controller {
             }
         });
 
-        saveGrayscaleImageButton.setOnMouseClicked(e->{
+        saveGrayscaleImageButton.setOnMouseClicked(e -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPEG Images (*.jpeg, *.jpg)", "*.jpg"));
             File saveFile = fileChooser.showSaveDialog(null);
-            if(saveFile != null){
+            if (saveFile != null) {
                 grayLevelProcessor.saveImage(saveFile.getAbsolutePath());
             }
         });
 
-        saveSimpleDitheringImageButton.setOnMouseClicked(e->{
+        saveSimpleDitheringImageButton.setOnMouseClicked(e -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPEG Images (*.jpeg, *.jpg)", "*.jpg"));
             File saveFile = fileChooser.showSaveDialog(null);
-            if(saveFile != null){
+            if (saveFile != null) {
                 simpleDitherProcessor.saveImage(saveFile.getAbsolutePath());
             }
         });
 
-        saveInplaceDitheringButton.setOnMouseClicked(e->{
+        saveInplaceDitheringButton.setOnMouseClicked(e -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPEG Images (*.jpeg, *.jpg)", "*.jpg"));
             File saveFile = fileChooser.showSaveDialog(null);
-            if(saveFile != null){
+            if (saveFile != null) {
                 inplaceDitherProcessor.saveImage(saveFile.getAbsolutePath());
             }
         });
-    }
 
+        randomMatrixCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                applySimpleDitheringMatrixSize();
+                applyInplaceDitheringMatrixSize();
+            }
+        });
+
+        showDitheringMatrixButton.setOnMouseClicked(e -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("FXGrayDither");
+            alert.setHeaderText("Dithering Matrices (Threshold Maps) Information");
+            alert.setContentText("Simple Dithering: " + simpleDitherProcessor.getDitheringMatrixString() +
+            "\nInplace Dithering: "+ inplaceDitherProcessor.getDitheringMatrixString());
+            alert.showAndWait();
+        });
+    }
 
     private void initImages() {
         inputImageLoader = new InputImageLoader(path);
@@ -105,6 +123,11 @@ public class Controller {
         simpleDitheringMatrixSize = simpleDitheringCombobox.getValue();
         simpleDitherProcessor = new SimpleDitherProcessor(grayLevelProcessor.getMat());
         simpleDitherProcessor.setDitheringMatrixSize(simpleDitheringMatrixSize);
+        if (randomMatrixCheckBox.isSelected()) {
+            simpleDitherProcessor.setRandomFlag(true);
+        } else {
+            simpleDitherProcessor.setRandomFlag(false);
+        }
         simpleDitherProcessor.doProcess();
         simpleDitheringImage.setImage(simpleDitherProcessor.getJavafxImage());
     }
@@ -113,19 +136,13 @@ public class Controller {
         inplaceDitheringMatrixSize = inplaceDitheringCombobox.getValue();
         inplaceDitherProcessor = new InplaceDitherProcessor(grayLevelProcessor.getMat());
         inplaceDitherProcessor.setDitheringMatrixSize(inplaceDitheringMatrixSize);
+        if (randomMatrixCheckBox.isSelected()) {
+            inplaceDitherProcessor.setRandomFlag(true);
+        } else {
+            inplaceDitherProcessor.setRandomFlag(false);
+        }
         inplaceDitherProcessor.doProcess();
         inplaceDitheringImage.setImage(inplaceDitherProcessor.getJavafxImage());
-    }
-
-    private String createImagePath(File file) {
-        String os = System.getProperty("os.name"),
-                newPath;
-        if (os.contains("Win") || os.contains("win")) {
-            newPath = "file:/" + file.getPath().replace("\\", "/");
-        } else {
-            newPath = "file:" + file.getPath();
-        }
-        return newPath;
     }
 
     @FXML
@@ -167,4 +184,9 @@ public class Controller {
     @FXML
     private JFXComboBox<Integer> inplaceDitheringCombobox;
 
+    @FXML
+    private JFXCheckBox randomMatrixCheckBox;
+
+    @FXML
+    private JFXButton showDitheringMatrixButton;
 }

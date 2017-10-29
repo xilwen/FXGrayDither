@@ -1,8 +1,9 @@
-public class DitheringProcessor extends ImageHolder implements ImageProcessor{
+public class DitheringProcessor extends ImageHolder implements ImageProcessor {
     protected boolean alreadyProcessed;
     protected int ditheringMatrixSize = 0;
     protected int ditheringMatrixSqrt;
     protected int ditheringMatrix[][];
+    protected boolean randomDitherMatrix = false;
 
     @Override
     public void doProcess() {
@@ -15,6 +16,10 @@ public class DitheringProcessor extends ImageHolder implements ImageProcessor{
     }
 
     protected void setDitherMatrix() {
+        if (randomDitherMatrix) {
+            setRandomDitherMatrix();
+            return;
+        }
         switch (ditheringMatrixSize) {
             case 4:
                 ditheringMatrix = new int[][]{{0, 2}, {3, 1}};
@@ -36,8 +41,55 @@ public class DitheringProcessor extends ImageHolder implements ImageProcessor{
         }
     }
 
+    protected void setRandomDitherMatrix() {
+        ditheringMatrix = new int[ditheringMatrixSqrt][ditheringMatrixSqrt];
+
+        for (int i = 0; i < ditheringMatrixSqrt; ++i) {
+            for (int j = 0; j < ditheringMatrixSqrt; ++j) {
+                boolean repetitionFlag = false;
+                do {
+                    ditheringMatrix[i][j] = (int) (Math.random() * ditheringMatrixSize + 1);
+                    repetitionFlag = checkRepetition(i, j, repetitionFlag);
+                } while (repetitionFlag);
+            }
+        }
+
+        for (int i = 0; i < ditheringMatrixSqrt; ++i) {
+            for (int j = 0; j < ditheringMatrixSqrt; ++j) {
+                --ditheringMatrix[i][j];
+            }
+        }
+    }
+
+    public void setRandomFlag(boolean flag) {
+        randomDitherMatrix = flag;
+    }
+
+    private boolean checkRepetition(int i, int j, boolean repetitionFlag) {
+        repetitionFlag = false;
+        for (int k = 0; k <= i; ++k) {
+            for (int m = 0; m < ditheringMatrixSqrt && !(k == i && m == j); ++m) {
+                if (ditheringMatrix[i][j] == ditheringMatrix[k][m])
+                    repetitionFlag = true;
+            }
+        }
+        return repetitionFlag;
+    }
+
     public void setDitheringMatrixSize(int ditheringMatrixSize) {
         this.ditheringMatrixSize = ditheringMatrixSize;
-        this.ditheringMatrixSqrt = (int)Math.sqrt(ditheringMatrixSize);
+        this.ditheringMatrixSqrt = (int) Math.sqrt(ditheringMatrixSize);
+    }
+
+    public String getDitheringMatrixString() {
+        StringBuilder stringBuilder = new StringBuilder(((Integer) ditheringMatrixSqrt).toString() + " x " +
+                ((Integer) ditheringMatrixSqrt).toString() + " Matrix\n");
+        for(int i = 0; i < ditheringMatrixSqrt; ++i){
+            for(int j = 0; j < ditheringMatrixSqrt; ++j){
+                stringBuilder.append(((Integer)ditheringMatrix[i][j]).toString() + " ");
+            }
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
     }
 }
