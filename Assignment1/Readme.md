@@ -1,4 +1,4 @@
-# Assignment 1 Report
+# Assignment 1
  
 Execuatable JAR is downloadable at https://github.com/xilwen/FXGrayDither/releases  
 
@@ -12,12 +12,14 @@ Execuatable JAR is downloadable at https://github.com/xilwen/FXGrayDither/releas
   Input Image size are 1600\*900, but downscaled to 480\*270 in this preview.  
   Simple dithering with 8*8 threshold map produced best graylevel color feeling, but it costs 8 times of resolution to represent the image, with an unacceptable file size.  
   Inplace dithering with 4\*4 threshold map produced the most balanced output on both file size and image feeling.  
-  ![alt tag](https://raw.githubusercontent.com/xilwen/FXGrayDither/master/Assignment1\images\Overview.png)  
+  
+  ![alt tag](https://raw.githubusercontent.com/xilwen/FXGrayDither/master/Assignment1/images/Overview.png)  
 
 ### Image Detail 
   Simple dithering with 3\*3 threshold map make the most detailed image with great gray level feeling unexpectedly. 4*4 version of this algorithm produced far better gray level feeling, but failed keeping image details.  
   All dithering outputs failed to present texts in the runtime error window of input image, so it is not a good idea using dithering to process images that details are required.  
-  ![alt tag](https://raw.githubusercontent.com/xilwen/FXGrayDither/master/Assignment1\images\Details.png)  
+
+  ![alt tag](https://raw.githubusercontent.com/xilwen/FXGrayDither/master/Assignment1/images/Details.png)  
 
 
 ### Dither Matrix Arrangement Modifications
@@ -27,3 +29,8 @@ Execuatable JAR is downloadable at https://github.com/xilwen/FXGrayDither/releas
 ![alt tag](https://raw.githubusercontent.com/xilwen/FXGrayDither/master/Screenshot.jpg)
 
 ## What I have learned in this assignment
+* Using native libraries(OpenCV dll) in Java
+* OpenCV Mat/Imgcodecs basics
+* Dithering techniques
+* "release" feature in GitHub
+* Markdown All in One extension of Visual Studio Code for offline markdown preview
