@@ -8,7 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="opencv-330" level="project" />
-    <orderEntry type="library" name="jfoenix" level="project" />
-    <orderEntry type="library" name="opencv_java330.dll" level="project" />
+    <orderEntry type="library" exported="" name="jfoenix" level="project" />
   </component>
 </module>
