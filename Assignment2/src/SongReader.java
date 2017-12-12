@@ -14,6 +14,10 @@ public class SongReader {
 
     private enum ReaderStatus {LEVEL, INTONATION, NOTE, LENGTH}
 
+    private Track trackStatus = Track.ALTO;
+    private ReaderStatus readerStatus = ReaderStatus.LEVEL;
+    private ArrayList<NoteDTO> altoNotes = new ArrayList<>(),
+            bassoNotes = new ArrayList<>();
 
     public SongReader(String filePath) throws Exception {
         file = new File(filePath);
@@ -29,12 +33,6 @@ public class SongReader {
         } catch (FileNotFoundException fileNotFoundException) {
             throw new Exception("file can not be scanned!");
         }
-
-        ArrayList<NoteDTO> altoNotes = new ArrayList<>(),
-                bassoNotes = new ArrayList<>();
-
-        Track trackStatus = Track.ALTO;
-        ReaderStatus readerStatus = ReaderStatus.LEVEL;
 
         while (scanner.hasNext()) {
             String parseString = scanner.nextLine();
@@ -62,22 +60,24 @@ public class SongReader {
                 if (Character.isDigit(parseString.charAt(i))) {
                     switch (readerStatus) {
                         case LEVEL:
-                            level = (int) parseString.charAt(i);
+                            level = parseString.charAt(i) - '0';
                             readerStatus = ReaderStatus.INTONATION;
                             break;
                         case INTONATION:
                             throw new Exception("file format error. Intonation should be _ or +.");
                         case NOTE:
-                            note = (int) parseString.charAt(i);
+                            note = parseString.charAt(i) - '0';
                             readerStatus = ReaderStatus.LENGTH;
                             break;
                         case LENGTH:
                             i = parseLength(parseString, newNote, i);
                             break;
                     }
+                } else if (parseString.charAt(i) == ' ') {
                 } else if (parseString.charAt(i) == '(' && readerStatus == ReaderStatus.LENGTH) {
                 } else if (parseString.charAt(i) == ')' && readerStatus == ReaderStatus.LENGTH) {
                     writeFrequency(newNote, level, note, sharp);
+                    newNote = new NoteDTO();
                     readerStatus = ReaderStatus.LEVEL;
                 } else if (parseString.charAt(i) == '+') {
                     sharp = true;
@@ -113,7 +113,7 @@ public class SongReader {
             newNote.length = Integer.valueOf(parseString.substring(i, j));
             i = j - 1;
         } else {
-            newNote.length = (int) parseString.charAt(i);
+            newNote.length = parseString.charAt(i) - '0';
         }
         return i;
     }
@@ -168,6 +168,11 @@ public class SongReader {
         } else {
             newNote.frequency = NotesFrequenciesMapping.freqencies[level][targetNote];
         }
+        if (trackStatus == Track.ALTO) {
+            altoNotes.add(newNote);
+        } else if (trackStatus == Track.BASSO) {
+            bassoNotes.add(newNote);
+        }
     }
 
     public Melody getAltoTrack() {
@@ -178,4 +183,9 @@ public class SongReader {
         return bassoTrack;
     }
 
+    public static void main(String[] args) throws Exception{
+        SongReader songReader = new SongReader("D:\\test.txt");
+        System.out.println(songReader.altoNotes.size());
+        System.out.println(songReader.bassoNotes.size());
+    }
 }
