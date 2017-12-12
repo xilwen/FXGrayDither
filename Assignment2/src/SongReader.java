@@ -176,10 +176,12 @@ public class SongReader {
     }
 
     public Melody getAltoTrack() {
+        altoTrack = new Melody(altoNotes);
         return altoTrack;
     }
 
     public Melody getBassoTrack() {
+        bassoTrack = new Melody(bassoNotes);
         return bassoTrack;
     }
 
@@ -187,5 +189,7 @@ public class SongReader {
         SongReader songReader = new SongReader("D:\\test.txt");
         System.out.println(songReader.altoNotes.size());
         System.out.println(songReader.bassoNotes.size());
+        Song song = new Song(songReader.getBassoTrack(), songReader.getAltoTrack());
+        song.generateSynthesizedFrequencies();
     }
 }
