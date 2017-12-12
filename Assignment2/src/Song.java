@@ -4,9 +4,13 @@ public class Song {
     private ArrayList<Double> synthesizedSamples = new ArrayList<>();
     private Melody bassoTrack, altoTrack;
 
-    public Song(Melody bassoTrack, Melody altoTrack){
+    public Song(Melody bassoTrack, Melody altoTrack) {
         this.bassoTrack = bassoTrack;
         this.altoTrack = altoTrack;
+    }
+
+    public ArrayList<Double> getSynthesizedSamples() {
+        return synthesizedSamples;
     }
 
     public void generateSynthesizedFrequencies() throws Exception {
@@ -17,7 +21,7 @@ public class Song {
         firstFrequencyCompensation(bassoTrack);
         for (int i = 1; i < bassoTrack.getSamples().size(); ++i) {
             if (i < altoTrack.getSamples().size()) {
-                double synthesizedSample = bassoTrack.getSamples().get(i) + altoTrack.getSamples().get(i - 1);
+                double synthesizedSample = (bassoTrack.getSamples().get(i) + altoTrack.getSamples().get(i - 1)) / 2.0;
                 synthesizedSamples.add(synthesizedSample);
             }
         }

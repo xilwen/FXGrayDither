@@ -191,5 +191,7 @@ public class SongReader {
         System.out.println(songReader.bassoNotes.size());
         Song song = new Song(songReader.getBassoTrack(), songReader.getAltoTrack());
         song.generateSynthesizedFrequencies();
+        WavFileProcessor wavFileProcessor = new WavFileProcessor();
+        wavFileProcessor.outputWaveFile("D:\\test.wav", song.getSynthesizedSamples());
     }
 }
