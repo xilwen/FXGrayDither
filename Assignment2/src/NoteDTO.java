@@ -1,4 +1,4 @@
 public class NoteDTO {
-    public NotesFrequenciesMapping note;
+    public int frequency;
     public double length;
 }

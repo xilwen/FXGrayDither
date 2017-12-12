@@ -3,19 +3,20 @@ import java.util.ArrayList;
 public class Song {
     private ArrayList<Integer> synthesizedFrequencies = new ArrayList<>();
 
-    public void generateSynthesizedFrequencies(Melody track0, Melody track1) throws Exception {
-        checkSampleRate(track0, track1);
-        prepareTracksFrequencies(track0, track1);
-        swapWhenTrack1Longer(track0, track1);
+    public void generateSynthesizedFrequencies(Melody bassoTrack, Melody altoTrack) throws Exception {
+        checkSampleRate(bassoTrack, altoTrack);
+        prepareTracksFrequencies(bassoTrack, altoTrack);
+        alignTracks(bassoTrack, altoTrack);
 
-        firstFrequencyCompensation(track0);
-        for (int i = 1; i < track0.getFrequencies().size(); ++i) {
-            if (i > track1.getFrequencies().size()) {
-                int synthesizedFrequency = 0; //TODO Frequency Modulation
+        firstFrequencyCompensation(bassoTrack);
+        for (int i = 1; i < bassoTrack.getFrequencies().size(); ++i) {
+            if (i < altoTrack.getFrequencies().size()) {
+                int synthesizedFrequency = bassoTrack.getFrequencies().get(i) + altoTrack.getFrequencies().get(i - 1);
+                //TODO Frequency Modulation
                 synthesizedFrequencies.add(synthesizedFrequency);
             }
         }
-        lastFrequencyCompensation(track0, track1);
+        lastFrequencyCompensation(bassoTrack, altoTrack);
     }
 
     private void prepareTracksFrequencies(Melody track0, Melody track1) throws Exception {
@@ -30,7 +31,7 @@ public class Song {
 
     private void lastFrequencyCompensation(Melody track0, Melody track1) {
         if (track1.getFrequencies().size() == track0.getFrequencies().size()) {
-            synthesizedFrequencies.add(track1.getFrequencies().get(track1.getFrequencies().size() - 1))
+            synthesizedFrequencies.add(track1.getFrequencies().get(track1.getFrequencies().size() - 1));
         }
     }
 
@@ -40,12 +41,9 @@ public class Song {
         }
     }
 
-    private void swapWhenTrack1Longer(Melody track0, Melody track1) {
-        if (track0.getFrequencies().size() < track1.getFrequencies().size()) {
-            Melody temp = track0;
-            track0 = track1;
-            track1 = temp;
-        }
+    private void alignTracks(Melody track0, Melody track1) {
+        track0.extendFrequenciesLengthWithZeroTo(track1.getFrequencies().size());
+        track1.extendFrequenciesLengthWithZeroTo(track0.getFrequencies().size());
     }
 
     private void checkSampleRate(Melody track0, Melody track1) throws Exception {

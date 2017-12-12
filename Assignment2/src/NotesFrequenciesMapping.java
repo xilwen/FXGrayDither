@@ -1,29 +1,16 @@
-public enum NotesFrequenciesMapping {
-    /*
-        This is a notes-to-frequencies mapping table.
-        All constant in this enum except for pause are named after <Note_Level> format.
-     */
+public class NotesFrequenciesMapping {
 
-    //Level 2
-    C_2(65), CSharp_2(69), D_2(73), DSharp_2(78), E_2(82), F_2(87), FSharp_2(93), G_2(98), GSharp_2(104), A_2(110),
-    ASharp_2(117), B_2(124),
+    static final int[][] freqencies = {
+            {16, 17, 18, 20, 21, 22, 23, 25, 26, 28, 29, 31}, //Level 0
+            {33, 35, 37, 39, 41, 44, 46, 49, 52, 55, 58, 62}, //Level 1
+            {65, 69, 73, 78, 82, 87, 93, 98, 104, 110, 117, 124}, //Level 2
+            {131, 139, 147, 156, 165, 175, 185, 196, 208, 220, 233, 247}, //Level 3
+            {262, 278, 294, 311, 330, 349, 370, 392, 415, 440, 466, 494}, //Level 4
+            {523, 554, 587, 622, 659, 699, 740, 784, 831, 880, 932, 988} //Level 5
+    };
 
-    //Level 3
-    C_3(131), CSharp_3(139), D_3(147), DSharp_3(156), E_3(165), F_3(175), FSharp_3(185), G_3(196), GSharp_3(208), A_3(220),
-    ASharp_3(233), B_3(247),
+    static final int C = 0, CSharp = 1, D = 2, DSharp = 3,
+            E = 4, F = 5, FSharp = 6, G = 7,
+            GSharp = 8, A = 9, ASharp = 10, B = 11;
 
-    //Level 4
-    C_4(262), CSharp_4(278), D_4(294), DSharp_4(311), E_4(330), F_4(349), FSharp_4(370), G_4(392), GSharp_4(415), A_4(440),
-    ASharp_4(466), B_4(494),
-
-    //Level 5
-    C_5(523), CSharp_5(554), D_5(587), DSharp_5(622), E_5(659), F_5(699), FSharp_5(740), G_5(784), GSharp_5(831), A_5(880),
-    ASharp_5(932), B_5(988),
-
-    //others
-    PAUSE(1)
-    ;
-
-    final int frequency;
-    NotesFrequenciesMapping(int frequency){this.frequency = frequency;}
 }

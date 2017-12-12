@@ -21,10 +21,17 @@ public class Melody {
         frequencies.clear();
         for (NoteDTO x : notes) {
             for (int i = 0; i < (int) (x.length * (double) getSampleRate()); ++i) {
-                int newFrequency = (int) Math.sin(2.0 * Math.PI *
-                        (double) x.note.frequency * ((double) i / (double) getSampleRate()));
-                frequencies.add(newFrequency);
+//                TODO data structure change
+//                int newFrequency = (int) Math.sin(2.0 * Math.PI *
+//                        (double) x.note.frequency * ((double) i / (double) getSampleRate()));
+//                frequencies.add(newFrequency);
             }
+        }
+    }
+
+    public void extendFrequenciesLengthWithZeroTo(int targetFrequenciesLength){
+        for(int i = 0; i < targetFrequenciesLength - frequencies.size(); ++i){
+            frequencies.add(1);
         }
     }
 }
