@@ -1,7 +1,7 @@
 public enum NotesFrequenciesMapping {
     /*
         This is a notes-to-frequencies mapping table.
-        All constant in this enum are named after <Note_Level> format.
+        All constant in this enum except for pause are named after <Note_Level> format.
      */
 
     //Level 2
@@ -18,7 +18,10 @@ public enum NotesFrequenciesMapping {
 
     //Level 5
     C_5(523), CSharp_5(554), D_5(587), DSharp_5(622), E_5(659), F_5(699), FSharp_5(740), G_5(784), GSharp_5(831), A_5(880),
-    ASharp_5(932), B_5(988)
+    ASharp_5(932), B_5(988),
+
+    //others
+    PAUSE(1)
     ;
 
     final int frequency;
