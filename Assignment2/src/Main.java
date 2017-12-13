@@ -23,6 +23,7 @@ public class Main extends Application {
     private Scene scene;
     private File saveFile;
     private File[] fmSaveFile = new File[3];
+    private MediaPlayer mediaPlayer;
 
     public static void main(String[] args) {
         launch(args);
@@ -92,7 +93,7 @@ public class Main extends Application {
             int targetIndex = fmFrequencyComboBox.getItems().indexOf(fmFrequencyComboBox.getValue());
             try {
                 Media sound = new Media(fmSaveFile[targetIndex].toURI().toString());
-                MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                mediaPlayer = new MediaPlayer(sound);
                 mediaPlayer.play();
             }catch(Exception e1){
                 showExceptionError(e1);
@@ -159,7 +160,7 @@ public class Main extends Application {
 
         playFileButton.setOnMouseClicked(e -> {
             Media sound = new Media(saveFile.toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+            mediaPlayer = new MediaPlayer(sound);
             mediaPlayer.play();
         });
         outputFileHBox.getChildren().addAll(tonalSoundLabel, saveFileButton, playFileButton);
