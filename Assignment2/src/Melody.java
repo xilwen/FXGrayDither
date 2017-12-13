@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Melody {
-    private int SampleRate = 44100;
+    private static final int SampleRate = 44100;
     private ArrayList<NoteDTO> notes;
     private ArrayList<Double> samples = new ArrayList<>();
 
@@ -13,7 +13,7 @@ public class Melody {
         return samples;
     }
 
-    public int getSampleRate() {
+    public static int getSampleRate() {
         return SampleRate;
     }
 

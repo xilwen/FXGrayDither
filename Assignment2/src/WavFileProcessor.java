@@ -49,6 +49,4 @@ public class WavFileProcessor {
         randomAccessFile.writeBytes("data");
         randomAccessFile.writeInt(0);//temporary
     }
-
-
 }

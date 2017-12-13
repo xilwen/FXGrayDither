@@ -193,5 +193,7 @@ public class SongReader {
         song.generateSynthesizedFrequencies();
         WavFileProcessor wavFileProcessor = new WavFileProcessor();
         wavFileProcessor.outputWaveFile("D:\\test.wav", song.getSynthesizedSamples());
+        FrequencyModulator frequencyModulator = new FrequencyModulator(song.getSynthesizedSamples());
+        wavFileProcessor.outputWaveFile("D:\\fmtest.wav", frequencyModulator.getResult(800));
     }
 }
