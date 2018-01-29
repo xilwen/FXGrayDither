@@ -9,7 +9,7 @@ public:
     PGMImage() : width(0), height(0), maxValue(255) {}
     explicit PGMImage(std::string inputFile);
 
-    short getPixel(unsigned int x, unsigned int y);
+    short getPixel (unsigned int x, unsigned int y);
     void setPixel(unsigned int x, unsigned int y, short value);
     unsigned int getWidth();
     unsigned int getHeight();
