@@ -3,9 +3,9 @@
 
 #include "MotionSearch.h"
 
-class SequentialMotionSearch : public MotionSearch {
+class SequentialMotionSearch : protected MotionSearch {
 
+    SequentialMotionSearch() {}
 };
-
 
 #endif //ASSIGNMENT3_SEQUENTIALMOTIONSEARCH_H

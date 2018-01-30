@@ -14,6 +14,7 @@ public:
     unsigned int getWidth();
     unsigned int getHeight();
     void saveToPath(std::string outputFile);
+    bool checkIfPositionExist(unsigned int x, unsigned int y);
 
 private:
     unsigned int width = 0, height = 0, maxValue = 255;

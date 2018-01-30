@@ -70,3 +70,12 @@ void PGMImage::saveToPath(std::string outputFile) {
     }
     ofstream.close();
 }
+
+bool PGMImage::checkIfPositionExist(unsigned int x, unsigned int y) {
+    try{
+        rangeCheck(x, y);
+    }catch(std::range_error &re){
+        return false;
+    }
+    return true;
+}

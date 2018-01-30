@@ -3,8 +3,9 @@
 
 #include "MotionSearch.h"
 
-class TwoDimensionalLogarithmMotionSearch : public MotionSearch{
+class TwoDimensionalLogarithmMotionSearch : protected MotionSearch{
 
+    TwoDimensionalLogarithmMotionSearch() {}
 };
 
 
