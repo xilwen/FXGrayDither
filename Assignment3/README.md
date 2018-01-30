@@ -6,7 +6,8 @@ For example:
         Assignment3  -s 16 15 C:\Users\Wen\Desktop\i1.pgm C:\Users\Wen\Desktop\i2.pgm C:\Users\Wen\Desktop\i2p-seq.pgm  
 will generate a prediction frame output save to i2p-seq.pgm from i1.pgm and i2.pgm, and show run time and SNR information to stdout.    
 
-      Images in this folder/subfolder are only for education/in-class usage. Redistribution of these images are strictly FORBIDDEN, and please respect the right of protraits.
+      Images in this folder/subfolder are only for education/in-class usage.
+      Redistribution of these images are strictly FORBIDDEN, and please respect the right of protraits.
 
 ## Results
 <table><tr><td></td><td>Sequential</td><td>2D Logarithm</td></tr>
@@ -21,7 +22,7 @@ will generate a prediction frame output save to i2p-seq.pgm from i1.pgm and i2.p
   
 
 ## Discussions
-  2D Logarithm are far faster than Sequential search, but also make more distortion on the image; although a higher SNR is present on 2D Logarithm algorithm, the output image still looks acceptable from human's respective.
+- 2D Logarithm are far faster than Sequential search, but also make more distortion on the image; although a higher SNR is present on 2D Logarithm algorithm, the output image still looks acceptable from human's respective.
 
 ## Experience 
 * Usage of "unsigned int" for implying others some variables cannot be negative is very expensive on code readability.    
