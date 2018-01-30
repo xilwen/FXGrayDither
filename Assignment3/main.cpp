@@ -2,7 +2,7 @@
 #include "PGMImage.h"
 
 int main(int argc, char **argv) {
-    //TODO this is for development testing
+
     if (argc != 2) {
         std::cout << "usage: <PGMInput>" << std::endl;
     }

@@ -26,6 +26,14 @@ PGMImage::PGMImage(std::string inputFile) {
     }
 }
 
+PGMImage::PGMImage(unsigned int width, unsigned int height) : width(width), height(height), maxValue(255) {
+    for(int i = 0; i < width; ++i){
+        for(int j = 0; j < height; ++j){
+            pixelStorage.push_back(0);
+        }
+    }
+}
+
 short PGMImage::getPixel(unsigned int x, unsigned int y) {
     rangeCheck(x, y);
     return pixelStorage.at(y * width + x);

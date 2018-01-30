@@ -31,15 +31,32 @@ MotionVectorDTO MotionSearch::searchMotionVector(unsigned int x, unsigned int y)
 }
 
 PGMImage MotionSearch::getResultImage() {
-    if(motionVectors.empty()){
-        predictionFrame = new PGMImage(*targetFrame);
+    if (motionVectors.empty()) {
+        throw std::runtime_error("can not get motion vectors while building prediction frame");
     }
     predictionFrame = new PGMImage(targetFrame->getWidth(), targetFrame->getHeight());
-    
+    for (int x = 0; x < targetFrame->getWidth(); ++x) {
+        for (int y = 0; y < targetFrame->getHeight(); ++y) {
+
+            for (int i = 0; i < targetFrame->getWidth(); ++i) {
+                for (int j = 0; j < targetFrame->getHeight(); ++j) {
+                    predictionFrame->setPixel(static_cast<unsigned int>(x + i), static_cast<unsigned int>(y + j),
+                                              targetFrame->getPixel(
+                                                      static_cast<unsigned int>(
+                                                              x + motionVectors[x + y * targetFrame->getWidth()].u),
+                                                      static_cast<unsigned int>(
+                                                              y + motionVectors[x + y * targetFrame->getWidth()].v)
+                                              )
+                    );
+                }
+            }
+
+        }
+    }
 }
 
 bool MotionSearch::checkFramePositionRange(unsigned int x, unsigned int y) {
     return !(x >= referenceFrame->getWidth() || y >= referenceFrame->getHeight() ||
-        x >= (referenceFrame->getWidth() - sizeOfMacroblock) ||
-        y >= (referenceFrame->getHeight() - sizeOfMacroblock));
+             x >= (referenceFrame->getWidth() - sizeOfMacroblock) ||
+             y >= (referenceFrame->getHeight() - sizeOfMacroblock));
 }
