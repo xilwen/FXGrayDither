@@ -4,8 +4,14 @@
 #include "MotionSearch.h"
 
 class SequentialMotionSearch : protected MotionSearch {
+public:
+    SequentialMotionSearch(PGMImage *referenceFrame, PGMImage *targetFrame, unsigned int sizeOfMacroblock,
+                           unsigned int searchWindowRadius) : MotionSearch(referenceFrame, targetFrame,
+                                                                           sizeOfMacroblock, searchWindowRadius) {}
 
-    SequentialMotionSearch() {}
+protected:
+    MotionVectorDTO searchMotionVector(unsigned int x, unsigned int y) override;
+
 };
 
 #endif //ASSIGNMENT3_SEQUENTIALMOTIONSEARCH_H

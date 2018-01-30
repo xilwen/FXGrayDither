@@ -5,7 +5,7 @@
 #include "PGMImage.h"
 
 class MotionSearchTools {
-
+public:
     static double getMeanAbsoluteDifference
             (PGMImage &referenceFrame, PGMImage &targetFrame, unsigned int sizeOfBlock,
              unsigned int x, unsigned int y,

@@ -22,6 +22,8 @@ protected:
 
     virtual MotionVectorDTO searchMotionVector(unsigned int x, unsigned int y);
 
+    bool checkFramePositionRange(unsigned int x, unsigned int y);
+
     unsigned int getSearchWindowRadius() { return searchWindowRadius; }
 
     unsigned int getsizeOfMacroBlock() { return sizeOfMacroblock; }

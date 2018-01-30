@@ -33,3 +33,9 @@ MotionVectorDTO MotionSearch::searchMotionVector(unsigned int x, unsigned int y)
 PGMImage MotionSearch::getResultImage() {
 
 }
+
+bool MotionSearch::checkFramePositionRange(unsigned int x, unsigned int y) {
+    return !(x >= referenceFrame->getWidth() || y >= referenceFrame->getHeight() ||
+        x >= (referenceFrame->getWidth() - sizeOfMacroblock) ||
+        y >= (referenceFrame->getHeight() - sizeOfMacroblock));
+}
