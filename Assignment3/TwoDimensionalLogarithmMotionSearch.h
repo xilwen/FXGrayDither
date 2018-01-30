@@ -3,9 +3,17 @@
 
 #include "MotionSearch.h"
 
-class TwoDimensionalLogarithmMotionSearch : protected MotionSearch{
+class TwoDimensionalLogarithmMotionSearch : protected MotionSearch {
+public:
+    TwoDimensionalLogarithmMotionSearch(PGMImage *referenceFrame, PGMImage *targetFrame, unsigned int sizeOfMacroblock,
+                                        unsigned int searchWindowRadius) :
+            MotionSearch(referenceFrame, targetFrame, sizeOfMacroblock, searchWindowRadius) {}
 
-    TwoDimensionalLogarithmMotionSearch() {}
+protected:
+    MotionVectorDTO searchMotionVector(unsigned int x, unsigned int y) override;
+
+private:
+    void initializeVectorsWithOffsets(MotionVectorDTO *vectors);
 };
 
 

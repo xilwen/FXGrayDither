@@ -31,7 +31,11 @@ MotionVectorDTO MotionSearch::searchMotionVector(unsigned int x, unsigned int y)
 }
 
 PGMImage MotionSearch::getResultImage() {
-
+    if(motionVectors.empty()){
+        predictionFrame = new PGMImage(*targetFrame);
+    }
+    predictionFrame = new PGMImage(targetFrame->getWidth(), targetFrame->getHeight());
+    
 }
 
 bool MotionSearch::checkFramePositionRange(unsigned int x, unsigned int y) {

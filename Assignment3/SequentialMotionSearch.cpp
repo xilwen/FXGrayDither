@@ -8,7 +8,7 @@ MotionVectorDTO SequentialMotionSearch::searchMotionVector(unsigned int x, unsig
     for (int i = -static_cast<int>(getSearchWindowRadius()); i < getSearchWindowRadius(); ++i) {
         for (int j = -static_cast<int>(getSearchWindowRadius()); j < getSearchWindowRadius(); ++j) {
             //TODO find a better cast way
-            if (checkFramePositionRange(x, y) ||
+            if (checkFramePositionRange(x, y) &&
                 checkFramePositionRange(static_cast<unsigned int>(static_cast<int>(x)) + i,
                                         static_cast<unsigned int>(static_cast<int>(y) + j))) {
                 double currentMAD = MotionSearchTools::getMeanAbsoluteDifference(*referenceFrame, *targetFrame,
