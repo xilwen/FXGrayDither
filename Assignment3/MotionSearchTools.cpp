@@ -27,7 +27,7 @@ double MotionSearchTools::getMeanAbsoluteDifference(PGMImage &referenceFrame, PG
 
 double MotionSearchTools::getSignalNoiseRatio(PGMImage &targetFrame, PGMImage &predictedFrame) {
     if ((targetFrame.getWidth() != predictedFrame.getWidth()) ||
-        (targetFrame.getHeight() != targetFrame.getWidth())) {
+        (targetFrame.getHeight() != predictedFrame.getHeight())) {
         throw std::runtime_error("Not the same image, can not get SNR");
     }
     double dividend(0), divisor(0);

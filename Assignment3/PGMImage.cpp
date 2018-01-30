@@ -27,8 +27,8 @@ PGMImage::PGMImage(std::string inputFile) {
 }
 
 PGMImage::PGMImage(unsigned int width, unsigned int height) : width(width), height(height), maxValue(255) {
-    for(int i = 0; i < width; ++i){
-        for(int j = 0; j < height; ++j){
+    for (int i = 0; i < width; ++i) {
+        for (int j = 0; j < height; ++j) {
             pixelStorage.push_back(0);
         }
     }
@@ -54,14 +54,14 @@ unsigned int PGMImage::getHeight() {
 
 void PGMImage::rangeCheck(unsigned int x, unsigned int y) {
     if (x >= width || y >= height) {
-        std::string errorMessage = std::to_string(x) + "," + std::to_string(y) + "out of image range";
+        std::string errorMessage = std::to_string(x) + "," + std::to_string(y) + " out of image range";
         throw std::range_error(errorMessage);
     }
 }
 
 void PGMImage::saveToPath(std::string outputFile) {
     std::ofstream ofstream(outputFile);
-    if (ofstream.is_open()) {
+    if (!ofstream.is_open()) {
         throw std::runtime_error(outputFile + " can not be opened for writing.");
     }
 
@@ -72,13 +72,20 @@ void PGMImage::saveToPath(std::string outputFile) {
                   << "file saving failed due to image corrupted";
     }
 
-    ofstream << "P2 " << width << " " << height << " " << maxValue;
-    for(short x : pixelStorage){
-        ofstream << x;
+    ofstream << "P2 " << width << " " << height << " " << maxValue<< " ";
+    for (short x : pixelStorage) {
+        ofstream << x << " ";
     }
     ofstream.close();
 }
 
 bool PGMImage::checkIfPositionExist(unsigned int x, unsigned int y) {
     return !(x >= width || y >= height);
+}
+
+PGMImage::PGMImage(const PGMImage &input) {
+    width = input.width;
+    height = input.height;
+    maxValue = input.maxValue;
+    pixelStorage = input.pixelStorage;
 }

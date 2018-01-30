@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <iostream>
 #include "MotionSearch.h"
 
 MotionSearch::MotionSearch(PGMImage *referenceFrame, PGMImage *targetFrame, unsigned int sizeOfMacroblock,
@@ -35,24 +36,28 @@ PGMImage MotionSearch::getResultImage() {
         throw std::runtime_error("can not get motion vectors while building prediction frame");
     }
     predictionFrame = new PGMImage(targetFrame->getWidth(), targetFrame->getHeight());
-    for (int x = 0; x < targetFrame->getWidth(); ++x) {
-        for (int y = 0; y < targetFrame->getHeight(); ++y) {
 
-            for (int i = 0; i < targetFrame->getWidth(); ++i) {
-                for (int j = 0; j < targetFrame->getHeight(); ++j) {
+    int pixelCount(0);
+    for (int x = 0; x < targetFrame->getWidth(); x += sizeOfMacroblock) {
+        for (int y = 0; y < targetFrame->getHeight(); y += sizeOfMacroblock) {
+
+            for (int i = 0; i < sizeOfMacroblock; ++i) {
+                for (int j = 0; j < sizeOfMacroblock; ++j) {
                     predictionFrame->setPixel(static_cast<unsigned int>(x + i), static_cast<unsigned int>(y + j),
                                               targetFrame->getPixel(
                                                       static_cast<unsigned int>(
-                                                              x + motionVectors[x + y * targetFrame->getWidth()].u),
+                                                              x + motionVectors[pixelCount].u + i),
                                                       static_cast<unsigned int>(
-                                                              y + motionVectors[x + y * targetFrame->getWidth()].v)
+                                                              y + motionVectors[pixelCount].v + j)
                                               )
                     );
                 }
             }
+            ++pixelCount;
 
         }
     }
+    return *predictionFrame;
 }
 
 bool MotionSearch::checkFramePositionRange(unsigned int x, unsigned int y) {

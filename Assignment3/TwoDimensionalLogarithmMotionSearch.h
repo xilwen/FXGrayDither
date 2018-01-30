@@ -3,7 +3,7 @@
 
 #include "MotionSearch.h"
 
-class TwoDimensionalLogarithmMotionSearch : protected MotionSearch {
+class TwoDimensionalLogarithmMotionSearch : public MotionSearch {
 public:
     TwoDimensionalLogarithmMotionSearch(PGMImage *referenceFrame, PGMImage *targetFrame, unsigned int sizeOfMacroblock,
                                         unsigned int searchWindowRadius) :

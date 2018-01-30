@@ -3,7 +3,7 @@
 
 #include "MotionSearch.h"
 
-class SequentialMotionSearch : protected MotionSearch {
+class SequentialMotionSearch : public MotionSearch {
 public:
     SequentialMotionSearch(PGMImage *referenceFrame, PGMImage *targetFrame, unsigned int sizeOfMacroblock,
                            unsigned int searchWindowRadius) : MotionSearch(referenceFrame, targetFrame,
