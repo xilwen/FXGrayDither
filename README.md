@@ -1,6 +1,9 @@
-# FXGrayDither
-This is assignment #0 and #1 of Multimedia Systems course.   
-Downloads : https://github.com/xilwen/FXGrayDither/releases
+# Multimedia System Fall, 2017
+This is repository for assignments of Multimedia Systems course.   
+Binary Downloads : https://github.com/xilwen/FXGrayDither/releases  
+       
+    Markdown practices below
+
 * Input  
 A color image (JPEG format)  
 * Output  
