@@ -5,7 +5,6 @@
 MotionVectorDTO SequentialMotionSearch::searchMotionVector(unsigned int x, unsigned int y) {
     double minMAD = std::numeric_limits<double>::max();
     MotionVectorDTO motionVectorDTO;
-//    int i = -static_cast<int>(getSearchWindowRadius());
     for (int i = -static_cast<int>(getSearchWindowRadius()); i <= static_cast<int>(getSearchWindowRadius()); ++i) {
         for (int j = -static_cast<int>(getSearchWindowRadius()); j <= static_cast<int>(getSearchWindowRadius()); ++j) {
             //TODO find a better cast way

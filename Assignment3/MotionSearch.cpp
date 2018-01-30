@@ -35,22 +35,26 @@ PGMImage MotionSearch::getResultImage() {
     if (motionVectors.empty()) {
         throw std::runtime_error("can not get motion vectors while building prediction frame");
     }
-    predictionFrame = new PGMImage(targetFrame->getWidth(), targetFrame->getHeight());
+    predictionFrame = new PGMImage(referenceFrame->getWidth(), referenceFrame->getHeight());
 
     int pixelCount(0);
-    for (int x = 0; x < targetFrame->getWidth(); x += sizeOfMacroblock) {
-        for (int y = 0; y < targetFrame->getHeight(); y += sizeOfMacroblock) {
+    for (int x = 0; x < referenceFrame->getWidth(); x += sizeOfMacroblock) {
+        for (int y = 0; y < referenceFrame->getHeight(); y += sizeOfMacroblock) {
 
             for (int i = 0; i < sizeOfMacroblock; ++i) {
                 for (int j = 0; j < sizeOfMacroblock; ++j) {
-                    predictionFrame->setPixel(static_cast<unsigned int>(x + i), static_cast<unsigned int>(y + j),
-                                              targetFrame->getPixel(
-                                                      static_cast<unsigned int>(
-                                                              x + motionVectors[pixelCount].u + i),
-                                                      static_cast<unsigned int>(
-                                                              y + motionVectors[pixelCount].v + j)
-                                              )
-                    );
+                    try {
+                        predictionFrame->setPixel(static_cast<unsigned int>(x + i), static_cast<unsigned int>(y + j),
+                                                  referenceFrame->getPixel(
+                                                          static_cast<unsigned int>(
+                                                                  x + motionVectors[pixelCount].u + i),
+                                                          static_cast<unsigned int>(
+                                                                  y + motionVectors[pixelCount].v + j)
+                                                  )
+                        );
+                    }catch(std::exception &e){
+                        std::cerr << e.what() << " x=" << x << " y=" << y <<" mvx=" << motionVectors[pixelCount].u << " mvy=" << motionVectors[pixelCount].v << std::endl;
+                    }
                 }
             }
             ++pixelCount;
