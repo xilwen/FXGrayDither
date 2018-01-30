@@ -25,5 +25,6 @@ hs_err_pid*
 out/
 Assignment1/out/
 cmake-build-debug/
+/Assignment3/.idea/workspace.xml
+/Assignment2/.idea/workspace.xml
 workspace.xml
-tasks.xml
